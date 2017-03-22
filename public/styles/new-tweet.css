@@ -1,0 +1,36 @@
+.new-tweet {
+  background: #DEDEDE;
+  width: 80%;
+  /*height: 37%;*/
+  margin: auto;
+  padding: 2%;
+  overflow: auto;
+  /*padding-bottom: 8%;*/
+  border-radius: 5px;
+  /*border-bottom: 10em;*/
+  /*border-left: 2em;*/
+  /*border-right: 2em;*/
+}
+
+.new-tweet h2 {
+  line-height: 10%;
+  padding-bottom: 2%;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+}
+
+.new-tweet textarea {
+  padding: 2%;
+  height: 2%;
+  width: 100%;
+  border: 5%;
+  margin: auto;
+}
+
+.new-tweet input {
+  float: left;
+}
+
+.new-tweet span {
+  float: right;
+}
