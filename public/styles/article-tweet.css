@@ -16,11 +16,11 @@ article {
   border-left: 2em;
   border-right: 2em;
   border-radius: 5px;
-  outline: solid 1px #B3B3B3;
+  border: 1px solid #ebf2eb;
 }
 
 article:hover {
-  outline: solid 1px;
+  border: solid 2px;
 }
 
 header {
