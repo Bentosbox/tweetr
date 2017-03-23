@@ -46,7 +46,6 @@
 //   }
 // ];
 
-
 //Functions for displaying tweeted messages
 
 function createTweetElement(tweet) {
@@ -75,6 +74,7 @@ function createTweetElement(tweet) {
     "created_at": createdAt
   };
 
+
   var $tweet =
     `
       <article>
@@ -101,24 +101,23 @@ function createTweetElement(tweet) {
       </article>
     `
 
+
   return $tweet;
   }
 function renderTweets(tweets) {
-// keysSorted = Object.keys(list).sort(function(a,b){return list[a]-list[b]})
-//   function sortByNewest(a,b) {
-//     return a - b;
-//   }
-//   tweets.sort(sortByNewest);
+  $('.articleContainer').empty();
   for (eachTweet of tweets) {
-    $('.articleContainer').append(createTweetElement(eachTweet));
+    $('.articleContainer').prepend(createTweetElement(eachTweet));
   }
 }
+
 
 function escape(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 }
+
 
 function loadTweets(databaseTweets) {
   $.ajax({                   //Ajax Takes in an object // formatting
@@ -130,8 +129,9 @@ function loadTweets(databaseTweets) {
     renderTweets(databaseTweets);
   });
 }
+
 $(document).ready(function() {
-  loadTweets();
+  // loadTweets();
   $('.new-tweet form').on('submit', function(event) {
     event.preventDefault();
     let text = $('.new-tweet textarea').serialize();
@@ -149,31 +149,20 @@ $(document).ready(function() {
         data: text
         // {content: {text: tweetWords}}
     }).done(function(newTweet) {
-        // tweetWords.focus();
-        // $('.new-tweet textarea').val('');
+        $('.new-tweet textarea').focus();
+        $('.new-tweet textarea').val('');
         loadTweets(tweetWords);
       });
     }
   });
 
   $("#nav-bar button").click(function() {
-    $("#nav-bar button").toggleClass("color", "white");
-    $(".new-tweet").toggle();
+    $(".new-tweet").slideToggle('slow');
+    $('.new-tweet textarea').focus()
+    if ($("#nav-bar button") === css("background", "white")) {
+      $("#nav-bar button").css("background", "#E3F0E3")
+    } else if ($("#nav-bar button") === css("background", "#E3f0E3")) {
+      $("#nav-bar button").css("background", "white")
+    }
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
