@@ -8,7 +8,7 @@ function createTweetElement(tweet) {
   let avatarLarge = tweet.user.avatars.large;
   let userHandle = tweet.user.handle;
   let contentText = tweet.content.text;
-  let createdAt = tweet.created_at;
+  let createdAt = timeSince(tweet.created_at);
 
   tweetStructure = {
     "user": {
@@ -72,7 +72,7 @@ function escape(str) {
 
 
 function loadTweets(databaseTweets) {
-  $.ajax({                   //Ajax Takes in an object // formatting
+  $.ajax({
       method: "GET",
       url: "/tweets",
   }).done (function (databaseTweets) {
@@ -80,9 +80,36 @@ function loadTweets(databaseTweets) {
   });
 }
 
+//Experimental Time Since Function
+
+function timeSince(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+      return interval + " years ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+      return interval + " months ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+      return interval + " days ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+      return interval + " hours ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+      return interval + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
+}
 
 $(document).ready(function() {
-  // loadTweets();
+  loadTweets();
   $('.new-tweet form').on('submit', function(event) {
     event.preventDefault();
     let text = $('.new-tweet textarea').serialize();
@@ -92,13 +119,12 @@ $(document).ready(function() {
     if (!tweetInput) {
       alert ('Feed Me Letters NomNomNom');
     } else if (tweetInput > 140) {
-      alert ('Too much letters blarhbrlabhlharg');
+      alert ('Halep Too Much Letters I cant eat that much');
     } else {
       $.ajax({
         method: 'POST',
         url: '/tweets',
         data: text
-        // {content: {text: tweetWords}}
     }).done(function(newTweet) {
         $('.new-tweet textarea').focus();
         $('.new-tweet textarea').val('');
@@ -107,14 +133,14 @@ $(document).ready(function() {
     }
   });
 
-
+//Work in Progress
   $("#nav-bar button").click(function() {
     $(".new-tweet").slideToggle('slow');
-    $('.new-tweet textarea').focus()
-    if ($("#nav-bar button") === css("background", "white")) {
-      $("#nav-bar button").css("background", "#E3F0E3")
-    } else if ($("#nav-bar button") === css("background", "#E3f0E3")) {
-      $("#nav-bar button").css("background", "white")
-    }
+    $('.new-tweet textarea').focus();
+    // if ($("#nav-bar button") === css("background", "white")) {
+    //   $("#nav-bar button").css("background", "#E3F0E3")
+    // } else if ($("#nav-bar button") === css("background", "#E3f0E3")) {
+    //   $("#nav-bar button").css("background", "white")
+    // }
   });
 });
